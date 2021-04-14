@@ -1,0 +1,62 @@
+<div class='div_container'>
+    <div class='partie_gauche'>
+        <div id='photo_vip'>
+            {{#if photosVip}}
+                {{#each photosVip}}
+                    <div class='header_photo'>
+                        <p>{{this.VIP_NOM}} {{this.VIP_PRENOM}}</p>
+                    </div>
+                    <div class="contenu_album">
+                {{/each}}
+                        <div class='back_photo'>
+                            {{#if photosVipPrec}}
+                                {{#each photosVipPrec}}
+                                    <a href="/album/{{this.VIP_NUMERO}}/{{this.PHOTO_NUMERO}}"><<</a>
+                                {{/each}}
+                            {{/if}}
+                        </div>
+                        {{#each photosVip}}
+                                <div class='photo_album'>
+                                    <img src="/images/vip/{{this.PHOTO_ADRESSE}}" alt="VIP" />
+                                </div>
+                        {{/each}}
+                        <div class='next_photo'>
+                            {{#if photosVipSuiv}}
+                                {{#each photosVipSuiv}}
+                                    <a href="/album/{{this.VIP_NUMERO}}/{{this.PHOTO_NUMERO}}">>></a>
+                                {{/each}}
+                            {{/if}}
+                        </div>
+                    </div>
+            {{/if}}
+        </div>
+        <div class='com_photo'>
+            {{#if photosVip}}
+                <fieldset class='fieldset'>
+                    <legend class='legend_fieldset'>Commentaire</legend> 
+                    <table class='legend_fieldset'>
+                        {{#each photosVip}}
+                            {{this.PHOTO_COMMENTAIRE}}        
+                        {{/each}}
+                    </table>
+                </fieldset>
+            {{/if}}
+        </div>
+    </div>
+
+    <div class='partie_droite'>
+        <div class='partie_menu'>
+            <div class='menu_album'>
+                {{#if photo}}
+                    {{#each photo}}
+                        <div class='div_img_album_menu'>
+                            <a href="/album/{{this.VIP_NUMERO}}"><img src="/images/vip/{{this.PHOTO_ADRESSE}}" alt="VIPs" class="img_menu_album" /></a>
+                        </div>
+                    {{/each}}
+                {{/if}}
+            </div>
+            <div>
+            </div>
+        </div>
+    </div>
+</div>

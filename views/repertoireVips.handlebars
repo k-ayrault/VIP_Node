@@ -1,0 +1,174 @@
+<h1>Cliquez sur une lettre : 
+
+    {{#each lettres}}
+    <a href="/repertoire/{{this.lettre}}">
+        {{this.lettre}}
+    </a>    
+    {{/each}}
+
+</h1>
+
+
+{{#if vips}}
+    <div class="vips">
+        {{#each vips}}
+                <div class="vip" onclick="window.location='/repertoire/vip/{{this.VIP_NUMERO}}';">
+                    <img src="/images/vip/{{this.PHOTO_ADRESSE}}">
+                    <br>
+                    <a>{{this.VIP_NOM}} {{this.VIP_PRENOM}}</a>
+                </div>
+        {{/each}}
+    </div>
+{{/if}}
+
+<div class="vipsInfo">
+    {{#if info}}
+            {{#each info}}
+                <img src="/images/vip/{{this.PHOTO_ADRESSE}}" class='image1'>
+                <p><a class="label">Nom :</a> {{this.VIP_NOM}} {{this.VIP_PRENOM}}</p>
+                <p><a class="label">Date de naissance :</a> {{this.VIP_NAISSANCE}}</p>
+                <p><a class="label">Nationnalité :</a> {{this.NATIONALITE_NOM}}</p>
+            {{/each}}
+            
+            {{#if realisateur}}
+                {{#each realisateur}}
+                    <p><a class="label">Profession :</a> {{this.REALISATEUR}}</p>
+                {{/each}}
+                <p><a class="label">Principal(aux) film(s) réalisé(s) : </a>
+                {{#each film}}
+                    {{this.FILM_TITRE}} ({{formatDate film.FILM_DATEREALISATION 'MMMM YYYY'}})</a>
+                {{/each}}    
+                </p>
+            {{/if}}
+
+            {{#if mannequin}}
+                <p><a class="label">Profession :</a> Mannequin</p>
+                <p><a class="label">Principal(aux) défilé(s) : </a>
+                {{#each mannequin}}
+                    {{this.DEFILE_LIEU}} ({{this.DEFILE_DATE}}) de <a class='vip_hover' href="/repertoire/vip/{{this.VIP_NUMERO}}">{{this.VIP_PRENOM}} {{this.VIP_NOM}}
+                    <span><img src="/images/vip/{{this.PHOTO_ADRESSE}}">{{this.VIP_PRENOM}} {{this.VIP_NOM}} <br><br> {{this.VIP_TEXTE}}</span></a>
+                {{/each}}   
+                </p>
+            {{/if}}
+
+            {{#if acteur}}
+                {{#each acteur}}
+                    <p><a class="label">Profession :</a> {{this.ACTEUR}}</p>
+                {{/each}}
+                <p><a class="label">Principal(aux) film(s) tourné(s) : </a>
+                {{#each jouer}}
+                    {{this.FILM_TITRE}} ({{formatDate jouer.FILM_DATEREALISATION 'MMMM YYYY'}}) de <a class='vip_hover' href="/repertoire/vip/{{this.VIP_NUMERO}}">{{this.VIP_PRENOM}} {{this.VIP_NOM}}
+                    <span><img src="/images/vip/{{this.PHOTO_ADRESSE}}">{{this.VIP_PRENOM}} {{this.VIP_NOM}} <br><br> {{this.VIP_TEXTE}}</span><br></a> 
+                {{/each}}
+                </p>
+            {{/if}}
+
+            {{#if couturier}}
+                {{#each couturier}}
+                <p><a class="label">Profession :</a> {{this.COUTURIER}}</p>
+                <p><a class="label">Principal(aux) défilé(s) : </a>
+                    {{this.DEFILE_LIEU}} ({{this.DEFILE_DATE}})
+                {{/each}}   
+                </p>
+            {{/if}}
+
+            {{#if chanteur}}
+                {{#each chanteur}}
+                <p><a class="label">Profession :</a> {{this.CHANTEUR}} ({{this.CHANTEUR_SPECIALITE}})</p>
+                
+                <p><a class="label">Principal(aux) album(s) : </a>
+                    {{this.ALBUM_TITRE}} ({{this.ALBUM_DATE}}) {{this.MAISONDISQUE_NOM}}<br>
+                {{/each}}   
+                </p>
+            {{/if}}
+
+            {{#if mariage}}
+                <p><a class="label">Mariage(s) :</a> 
+                {{#each mariage}}
+                    <a class='vip_hover' href="/repertoire/vip/{{this.VIP_VIP_NUMERO}}">{{this.VIP_PRENOM}} {{this.VIP_NOM}}
+                    <span><img src="/images/vip/{{this.PHOTO_ADRESSE}}">{{this.VIP_PRENOM}} {{this.VIP_NOM}} <br><br> {{this.VIP_TEXTE}}</span></a> ({{this.DATE_EVENEMENT}} --> {{this.MARIAGE_FIN}})
+                    <a class="label">Lieu : </a>{{this.MARIAGE_LIEU}}
+                    <a class="label">Raison de fin :</a> {{this.MARIAGE_MOTIFFIN}} <br>
+                {{/each}}
+                </p>
+            {{/if}}
+                
+            {{#if liaison}}
+                <p><a class="label">Liaison(s) :</a> 
+                {{#each liaison}}
+                    <a class='vip_hover' href="/repertoire/vip/{{this.VIP_VIP_NUMERO}}">{{this.VIP_PRENOM}} {{this.VIP_NOM}}
+                    <span><img src="/images/vip/{{this.PHOTO_ADRESSE}}">{{this.VIP_PRENOM}} {{this.VIP_NOM}} <br><br> {{this.VIP_TEXTE}}</span></a> ({{this.DATE_EVENEMENT}})
+                    <a class="label">Raison fin de liaison : </a>{{this.LIAISON_MOTIFFIN}} <br>
+                {{/each}}
+                </p>
+            {{/if}}
+                
+            {{#each info}}
+                <p><a class="label">Qui-suis-je ? :</a> {{this.VIP_TEXTE}}</p>
+            {{/each}}
+
+            {{#if image}}
+                <div class="row">
+                    {{#each image}} 
+                        <div class="column">
+                            <img src="/images/vip/{{this.PHOTO_ADRESSE}}" onclick="openModal();currentSlide({{@index}})" class="hover-shadow cursor demo" alt="{{this.PHOTO_SUJET}} - {{this.PHOTO_COMMENTAIRE}}">
+                        </div>
+                    {{/each}}
+                </div>
+                <div id="myModal" class="modal">
+                    <span class="close cursor" onclick="closeModal()">&times;</span>
+                    <div class="modal-content">
+                        {{#each image}} 
+                            <div class="mySlides">
+                                <img src="/images/vip/{{this.PHOTO_ADRESSE}}"  onclick="openModal();currentSlide({{@index}})" class="hover-shadow cursor" alt='aled'> 
+                            </div>
+                        {{/each}}
+                        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+                        <div class="caption-container">
+                            <p id="caption"></p>
+                        </div>
+                    </div>
+                </div> 
+            {{/if}}
+    {{/if}}
+
+    <script>
+function openModal() {
+  document.getElementById("myModal").style.display = "block";
+}
+
+function closeModal() {
+  document.getElementById("myModal").style.display = "none";
+}
+
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n + 1);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("demo");
+  var captionText = document.getElementById("caption");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+  captionText.innerHTML = dots[slideIndex-1].alt;
+}
+</script>

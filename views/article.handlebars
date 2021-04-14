@@ -1,0 +1,49 @@
+<div class="div_container">
+    <div class="partie_gauche">
+        <fieldset class='fieldset'>
+            <legend class='legend_fieldset'>Article</legend> 
+            <table class='legend_fieldset'>
+                {{#if article}}
+                    {{#each article}}
+                        <tr>
+                            <td class='souligne'>
+                            {{this.VIP_PRENOM}} {{this.VIP_NOM}}
+                            <br>
+                            <br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class='justify'>
+                                {{this.ARTICLE_RESUME}}
+                                <br>
+                                <br>
+                            </td>
+                        </tr>
+                        <tr class="pied_page_article"><td>
+                            [Ajouté le {{formatDate this.ARTICLE_DATE_INSERT 'D MMMM YYYY'}}]
+                        </td>
+                        <td>
+                            <a href='/repertoire/vip/{{this.VIP_NUMERO}}' class='souligne'>voir sa fiche</a>
+                        </td></tr>
+                    {{/each}}
+                {{else}}
+                    <tr><td>Choisissez un vip pour voir les articles le concernant</td></tr>
+                {{/if}}
+            </table>
+        </fieldset>
+
+    </div>
+    <div class="partie_droite">
+        <div class='img_menu'>
+            <img src="/images/vips.png" alt="VIPs" />
+        </div>
+        <div class='partie_menu'>
+        {{#if vips}}
+            {{#each vips}}
+                <a href='/articles/{{this.VIP_NUMERO}}' class='souligne'>{{this.VIP_PRENOM}} {{this.VIP_NOM}}</a>
+                <br>
+            {{/each}}
+        {{/if}}
+        </div> 
+    </div>
+</div>

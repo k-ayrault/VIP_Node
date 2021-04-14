@@ -1,0 +1,109 @@
+
+<div class="menu_haut">
+  <ul>
+    <li><a href="/vip">VIPS</a></li>
+    <li class="traitVertical"><a href="/photo">PHOTO</a></li>
+  </ul>
+</div>
+<div id="contenu">
+    <br/>
+    <br/>
+    <div style="width: 100%; display:flex;">
+        <div id='menu_admin_vip' style="width: 20%;">
+            <div style='width:100%;width:50%;border-radius:1em 1em 0em 0em; border:1px solid black; background-color:black'>
+                <img src="/images/vips.png" alt="VIPs" />
+            </div>
+            <div style="width:50%;border:1px solid white;background-color:black;height:3.5em;display:flex;align-items:center; justify-content:center;">
+                    <a href='/ajoutVip' style='color:white; text-decoration:underline;'>AJOUTER</a>
+            </div> 
+            <div style="width:50%;border:1px solid white;background-color:black;height:3.5em;display:flex;align-items:center; justify-content:center;">
+                    <a href='/modifVip' style='color:white; text-decoration:underline;'>MODIFIER</a>
+            </div>
+            <div style="width:50%;border:1px solid white;background-color:black;height:3.5em;display:flex;align-items:center; justify-content:center;">
+                    <a href='/suppVip' style='color:white; text-decoration:underline;'>SUPPRIMER</a>
+            </div>  
+
+        </div>
+
+        {{#if msg}}
+            <p>{{this.msg}}</p>
+            <form action='/modifVip' class='form' method='POST' >
+                <input type='submit' name='input_ajout_vip' value='Continuer'>
+            </form>
+        {{else}}
+            {{#if vip}}
+                {{#each vip}}
+                    <fieldset style='width:80%'>
+                        <legend style="text-align: left;">Modifier VIPs</legend>
+                                <form action='/modifVip' class='form' method='POST' >
+                                            <table style='text-align:left;'>
+                                                <tr>
+                                                    <td><label for='nom_vip' >Nom* :</label> </td>
+                                                    <td><input type='text' name='nom_vip' value='{{this.VIP_NOM}}'></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for='prenom_vip'>Prénom* :</label> </td>
+                                                    <td><input type='text' name='prenom_vip' value='{{this.VIP_PRENOM}}'></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for='sex_vip'>Sexe :</label> </td>
+                                                    <td>
+                                                        <select name="sex_vip">
+                                                            <option value="M">Masculin</option>
+                                                            <option value="F">Féminin</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for='date_naiss_vip'>Date de naissance :</label> </td>
+                                                    <td><input type='date' name='date_naiss_vip' value='{{formatDate this.VIP_NAISSANCE 'YYYY-MM-DD'}}'></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for='nat_vip'>Nationalité :</label> </td>
+                                                    <td>
+                                {{/each}}
+                                                            {{#if nationalites}}
+                                                                <select name="nat_vip">
+                                                                {{#each nationalites}}
+                                                                    <option value="{{this.NATIONALITE_NUMERO}}">{{this.NATIONALITE_NOM}}</option>
+                                                                {{/each}}
+                                                        </select>
+                                                            {{/if}}
+                                {{#each vip}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for='com_vip'>Commentaire :</label> </td>
+                                                    <td><input type='text' name='com_vip' value='{{this.VIP_TEXTE}}'></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for='image_vip'>Sélectionner l'image :</label> </td>
+                                                    <td><input type='file' name='image_vip' accept="image/png, image/jpeg"></td>
+                                                    <td><label for='sujet_vip'>Sujet :</label> </td>
+                                                    <td><input type='text' name='sujet_vip' value='{{this.PHOTO_SUJET}}'></td>
+                                                </tr><tr>
+                                                    <input type='hidden' name='vip_id' value='{{this.VIP_NUMERO}}'>
+                                                    <td><input type='submit' name='input_ajout_vip' value='Modifier le vip'></td>
+                                                </tr>
+                                            </table>
+                                        </form>
+                            {{/each}}
+                        {{else}}
+                            {{#if vips}}
+                                <fieldset style='width:80%'>
+                                    <legend style="text-align: left;">Modifier VIPs</legend>
+                                    <form action="/modifVip" method="POST">
+                                        <label for='vip_choix'>Choix du vip : </label>
+                                            <select name="vip_choix">
+                                                {{#each vips}}
+                                                    <option value="{{this.VIP_NUMERO}}">{{this.VIP_NOM}} {{this.VIP_PRENOM}}</option>
+                                                {{/each}}
+                                            </select>
+                                        <input type="submit" value='Modifer'>
+                                    </form>
+                            {{/if}}
+                            </fieldset>
+                        {{/if}}
+        {{/if}}
+    </div>  
+</div>
